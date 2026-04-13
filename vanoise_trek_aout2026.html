@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanoise — Trek août 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal-50: #E1F5EE;
+    --teal-100: #9FE1CB;
+    --teal-600: #0F6E56;
+    --teal-800: #085041;
+    --teal-900: #04342C;
+    --amber-50: #FAEEDA;
+    --amber-400: #EF9F27;
+    --amber-800: #633806;
+    --red-50: #FCEBEB;
+    --red-700: #791F1F;
+    --gray-50: #F7F6F2;
+    --gray-100: #EDECE8;
+    --gray-200: #D9D8D2;
+    --gray-400: #888780;
+    --gray-700: #444441;
+    --gray-900: #1A1A18;
+    --white: #FFFFFF;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--gray-50);
+    color: var(--gray-900);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--teal-900);
+    color: var(--white);
+    padding: 64px 40px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: 60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-100);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+  .hero-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .hero-pill {
+    font-size: 12px;
+    padding: 5px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 40px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* Main layout */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* Section headers */
+  .section {
+    margin-top: 56px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--gray-900);
+    margin-bottom: 14px;
+  }
+  .section-body {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.75;
+    max-width: 620px;
+  }
+
+  /* Transport grid */
+  .transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .transport-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .tc-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 6px;
+  }
+  .tc-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .tc-body {
+    font-size: 12px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .tc-price {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--amber-800);
+    background: var(--amber-50);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* Warning / info boxes */
+  .callout {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .callout.warn {
+    background: var(--amber-50);
+    border-left: 3px solid var(--amber-400);
+    color: var(--amber-800);
+  }
+  .callout.info {
+    background: var(--teal-50);
+    border-left: 3px solid var(--teal-600);
+    color: var(--teal-800);
+  }
+  .callout strong { font-weight: 500; }
+
+  /* Itinerary tabs */
+  .tabs-wrap {
+    margin-top: 32px;
+  }
+  .tab-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: 0;
+  }
+  .tab-btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 18px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    color: var(--gray-400);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: var(--gray-700); }
+  .tab-btn.active {
+    color: var(--teal-800);
+    border-bottom-color: var(--teal-600);
+  }
+
+  .itinerary { display: none; }
+  .itinerary.active { display: block; }
+
+  /* Route header */
+  .route-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .route-name {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .route-meta {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .route-stat {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+  .route-stat strong {
+    color: var(--gray-900);
+    font-weight: 500;
+  }
+  .diff-badge {
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .diff-mid {
+    background: var(--teal-50);
+    color: var(--teal-800);
+  }
+  .diff-hard {
+    background: var(--red-50);
+    color: var(--red-700);
+  }
+  .route-desc {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 14px 0 24px;
+  }
+
+  /* Day rows */
+  .days-list { border-top: 1px solid var(--gray-200); }
+  .day-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .day-col-date {
+    font-size: 12px;
+    color: var(--gray-400);
+    line-height: 1.5;
+    padding-top: 3px;
+  }
+  .day-col-date .day-num {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-700);
+    display: block;
+  }
+  .day-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--teal-50);
+    color: var(--teal-800);
+    margin-bottom: 6px;
+  }
+  .day-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .day-desc {
+    font-size: 12px;
+    color: var(--gray-400);
+    line-height: 1.6;
+  }
+  .price-pill {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--amber-800);
+    background: var(--amber-50);
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* Budget table */
+  .budget-section {
+    margin-top: 32px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .budget-header {
+    padding: 16px 22px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-700);
+  }
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .budget-table td {
+    padding: 11px 22px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+    vertical-align: middle;
+  }
+  .budget-table tr:last-child td {
+    border-bottom: none;
+    background: var(--gray-50);
+    font-weight: 500;
+    color: var(--gray-900);
+    border-top: 1px solid var(--gray-200);
+  }
+  .budget-table td:last-child {
+    text-align: right;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+  .budget-table td.detail {
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* Tips section */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .tip-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .tip-icon {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .tip-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .tip-body {
+    font-size: 12px;
+    color: var(--gray-400);
+    line-height: 1.65;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 64px;
+    padding: 24px 40px;
+    background: var(--teal-900);
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 24px 40px; }
+    .container { padding: 0 16px 60px; }
+    .day-row { grid-template-columns: 1fr; gap: 8px; }
+    .day-col-date { display: flex; gap: 10px; align-items: baseline; }
+    .route-header { flex-direction: column; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Trek planificateur · Été 2026</p>
+  <h1>Parc national<br>de la Vanoise</h1>
+  <p class="hero-sub">Itinéraire complet pour deux sœurs — refuges, transports, budgets, et trois options de circuit.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">3–10 août 2026</span>
+    <span class="hero-pill">Depuis Strasbourg</span>
+    <span class="hero-pill">2 personnes</span>
+    <span class="hero-pill">Alpes franco-italiennes</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TRANSPORT -->
+  <div class="section">
+    <p class="section-label">Étape 1 — Transports</p>
+    <h2 class="section-title">Comment rejoindre la Vanoise</h2>
+    <p class="section-body">Deux portes d'entrée selon le circuit choisi. Les billets SNCF pour l'été sont <strong>déjà en vente</strong> depuis mars 2026 — réserver maintenant pour obtenir les tarifs Prem's avant qu'ils disparaissent.</p>
+
+    <div class="transport-grid">
+      <div class="transport-card">
+        <div class="tc-label">Porte Maurienne · Recommandée</div>
+        <div class="tc-title">Strasbourg → Modane</div>
+        <div class="tc-body">~7h15 · TGV INOUI vers l'Italie via Lyon. Souvent sans changement de gare. Accès direct aux circuits B et C.</div>
+        <span class="tc-price">Prem's ~45–65 €/pers</span>
+      </div>
+      <div class="transport-card">
+        <div class="tc-label">Porte Tarentaise</div>
+        <div class="tc-title">Strasbourg → Moûtiers</div>
+        <div class="tc-body">~7h30 · TGV + TER (changement à Lyon ou Chambéry). Nécessaire pour le circuit A depuis Pralognan.</div>
+        <span class="tc-price">Prem's ~50–75 €/pers</span>
+      </div>
+      <div class="transport-card">
+        <div class="tc-label">Moûtiers → Pralognan</div>
+        <div class="tc-title">Bus navette été</div>
+        <div class="tc-body">45 min · Autocars Martin. Fonctionne juin–septembre. Horaires disponibles sur le site de l'OT Pralognan.</div>
+        <span class="tc-price">~5 €/pers</span>
+      </div>
+      <div class="transport-card">
+        <div class="tc-label">Modane → trailhead</div>
+        <div class="tc-title">Navette ou taxi</div>
+        <div class="tc-body">Navette vers Aussois : ~3 €. Taxi partagé (2 pers) vers le Refuge de l'Orgère : ~25 €. Route jusqu'à 1800m en voiture.</div>
+        <span class="tc-price">3–25 € selon option</span>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <strong>Quel jour partir ?</strong> — Aug 3 (dim) donne le maximum de jours de rando mais c'est souvent le plus cher. Aug 4 (lun) est le meilleur compromis prix/aventure. Aug 5 (mar) = le moins cher, mais seulement 5 jours en montagne, ça se sent. Recommandation : <strong>partez le 3 si vous pouvez absorber le surcoût</strong> — ça change vraiment le trip.
+    </div>
+    <div class="callout info">
+      <strong>Billet retour de ta sœur (10 août).</strong> C'est un dimanche de plein mois d'août — les places aux tarifs bas partent en premier. Réserver ce billet <em>maintenant</em>, même avant les refuges.
+    </div>
+  </div>
+
+  <!-- ITINERARIES -->
+  <div class="section">
+    <p class="section-label">Étape 2 — Circuits</p>
+    <h2 class="section-title">Choisir un itinéraire</h2>
+    <p class="section-body">Trois options, du plus complet au plus accessible, selon votre date de départ et votre appétit d'aventure.</p>
+
+    <div class="tabs-wrap">
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="showTab('a',this)">A — Tour complet · 7 jours</button>
+        <button class="tab-btn" onclick="showTab('b',this)">B — Traversée rapide · 5 jours</button>
+        <button class="tab-btn" onclick="showTab('c',this)">C — Haute-Maurienne · 6 jours</button>
+      </div>
+
+      <!-- OPTION A -->
+      <div class="itinerary active" id="tab-a">
+        <div class="route-header">
+          <div>
+            <div class="route-name">Tour des Glaciers de la Vanoise</div>
+            <div class="route-meta">
+              <span class="route-stat"><strong>~87 km</strong> · boucle</span>
+              <span class="route-stat"><strong>6 étapes</strong></span>
+              <span class="route-stat">Départ : <strong>Pralognan-la-Vanoise</strong></span>
+              <span class="route-stat">Départ recommandé : <strong>3 août</strong></span>
+            </div>
+          </div>
+          <span class="diff-badge diff-mid">Intermédiaire</span>
+        </div>
+        <p class="route-desc">L'itinéraire iconique — le "TGV" pour les intimes. Boucle complète autour des glaciers de la Vanoise depuis Pralognan, via le Col de la Vanoise (2517m), la haute vallée de la Rocheure, les refuges d'Aussois côté Maurienne, et retour par Péclet-Polset et La Valette. Bouquetins, chamois et gypaètes quasi garantis. Ta sœur repart directement depuis Pralognan le 10 (bus → Moûtiers → train Strasbourg).</p>
+
+        <div class="days-list">
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">3 août</span>J0 · Transit</div>
+            <div>
+              <span class="day-badge">Train + navette</span>
+              <div class="day-title">Strasbourg → Pralognan-la-Vanoise (1400m)</div>
+              <div class="day-desc">TGV → Moûtiers (7h30), puis navette Autocars Martin (45 min, ~5 €). Nuit en gîte d'étape à Pralognan. Se coucher tôt.</div>
+            </div>
+            <span class="price-pill">~70 €/pers tout compris</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">4 août</span>J1</div>
+            <div>
+              <span class="day-badge">4h · +1100m / -0m</span>
+              <div class="day-title">Pralognan → Refuge du Col de la Vanoise (2517m)</div>
+              <div class="day-desc">Via hameaux du Barioz et des Bieux, Lac des Vaches (traversée sur "lauzes"). Vue imprenable sur la Grande Casse (3855m), plus haut sommet de Savoie.</div>
+            </div>
+            <span class="price-pill">~70 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">5 août</span>J2</div>
+            <div>
+              <span class="day-badge">6h · +250m / -455m</span>
+              <div class="day-title">Col de la Vanoise → Refuge de l'Arpont (2309m)</div>
+              <div class="day-desc">Vallon de la Rocheure puis La Leisse. Panorama glaciaire immense. Blockhaus de la Grande Guerre visible en chemin. Zone à bouquetins par excellence.</div>
+            </div>
+            <span class="price-pill">~62 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">6 août</span>J3</div>
+            <div>
+              <span class="day-badge">7h · +505m / -615m</span>
+              <div class="day-title">Arpont → Refuge Dent Parrachée (2508m) · secteur Aussois</div>
+              <div class="day-desc">Sentier balcon très sauvage au-dessus de la Maurienne. Vue sur les barrages d'Aussois et le massif des Écrins. Journée longue — partir tôt, vers 7h.</div>
+            </div>
+            <span class="price-pill">~63 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">7 août</span>J4</div>
+            <div>
+              <span class="day-badge">5h · +265m / -530m</span>
+              <div class="day-title">Dent Parrachée → Refuge de l'Orgère (1985m)</div>
+              <div class="day-desc">Via col du Barbier. Plateau du Mauvais Berger — forêt de cembros centenaires, zone à bouquetins. Ambiance plus douce après les 2 jours précédents.</div>
+            </div>
+            <span class="price-pill">~59 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">8 août</span>J5</div>
+            <div>
+              <span class="day-badge">4h · +860m / -325m</span>
+              <div class="day-title">Orgère → Refuge de Péclet-Polset (2474m)</div>
+              <div class="day-desc">Vue directe sur le glacier de Péclet. Ambiance haute montagne immédiate. Moins fréquenté que les refuges précédents — soirée tranquille.</div>
+            </div>
+            <span class="price-pill">~65 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">9 août</span>J6</div>
+            <div>
+              <span class="day-badge">3–4h · +800m / -150m</span>
+              <div class="day-title">Péclet-Polset → Refuge de la Valette (2590m)</div>
+              <div class="day-desc">Cirque de la Valette aux pieds des glaciers. Vue 360° sur la Grande Casse. Selon les retours : le refuge coup de cœur du trek — nourriture maison, gérants sympas, petit dortoir chaleureux.</div>
+            </div>
+            <span class="price-pill">~65 €/pers demi-pension</span>
+          </div>
+          <div class="day-row" style="border-bottom:none;">
+            <div class="day-col-date"><span class="day-num">10 août</span>J7 · Retour</div>
+            <div>
+              <span class="day-badge">5h · +285m / -1450m</span>
+              <div class="day-title">Valette → Pralognan → départ de la sœur</div>
+              <div class="day-desc">Descente finale via cirques du Marchet et de l'Arcellin. Bus Pralognan → Moûtiers en fin de matinée → train Strasbourg pour ta sœur. Val continue où elle veut depuis Pralognan ou Moûtiers.</div>
+            </div>
+            <span class="price-pill">+ billet retour</span>
+          </div>
+        </div>
+
+        <div class="budget-section" style="margin-top:32px;">
+          <div class="budget-header">Budget Option A — par personne · 2 personnes total ×2</div>
+          <table class="budget-table">
+            <tr><td>Train Strasbourg → Moûtiers (Prem's, Aug 3)</td><td class="detail">TGV + TER, booked early</td><td>55–70 €</td></tr>
+            <tr><td>Bus Moûtiers → Pralognan</td><td class="detail">Autocars Martin, navette été</td><td>5 €</td></tr>
+            <tr><td>Gîte d'étape J0 (Pralognan)</td><td class="detail">Dortoir + dîner inclus</td><td>~35 €</td></tr>
+            <tr><td>6 nuits en refuge (demi-pension)</td><td class="detail">Nuit + dîner + petit-déj · moyenne 64 €/nuit</td><td>~384 €</td></tr>
+            <tr><td>5 paniers pique-nique (refuges)</td><td class="detail">Commandés la veille au refuge, ~10 €</td><td>~50 €</td></tr>
+            <tr><td>Bus Pralognan → Moûtiers (J7)</td><td class="detail">Navette été retour</td><td>5 €</td></tr>
+            <tr><td>Train Moûtiers → Strasbourg (sœur, Aug 10)</td><td class="detail">Prem's dimanche haute saison</td><td>55–70 €</td></tr>
+            <tr><td>Taxes de séjour + douches</td><td class="detail">~0,30 €/j taxe + 2–3 € douche chaude</td><td>~15 €</td></tr>
+            <tr><td><strong>Total estimé</strong></td><td></td><td><strong>604–634 €</strong></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- OPTION B -->
+      <div class="itinerary" id="tab-b">
+        <div class="route-header">
+          <div>
+            <div class="route-name">Traversée Modane → Pralognan</div>
+            <div class="route-meta">
+              <span class="route-stat"><strong>~52 km</strong> · linéaire</span>
+              <span class="route-stat"><strong>4 étapes</strong></span>
+              <span class="route-stat">Départ : <strong>Modane</strong></span>
+              <span class="route-stat">Idéal si : <strong>départ 4 ou 5 août</strong></span>
+            </div>
+          </div>
+          <span class="diff-badge diff-mid">Intermédiaire</span>
+        </div>
+        <p class="route-desc">Version raccourcie mais très complète. Accès ultra-direct par TGV INOUI vers l'Italie jusqu'à Modane — souvent sans changement depuis Strasbourg. Traversée Maurienne → Tarentaise via les refuges les plus emblématiques : Orgère, Péclet-Polset, Valette, Col de la Vanoise. Parfaite si vous partez le 4 ou 5.</p>
+
+        <div class="days-list">
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">4/5 août</span>J0 · Transit</div>
+            <div>
+              <span class="day-badge">Train + navette</span>
+              <div class="day-title">Strasbourg → Modane → Refuge de l'Orgère (1985m)</div>
+              <div class="day-desc">TGV vers l'Italie (7h15, souvent direct depuis Strasbourg). Taxi ou navette jusqu'à l'Orgère (route jusqu'à ~1800m). Arrivée en soirée au refuge.</div>
+            </div>
+            <span class="price-pill">~65 €/pers tout compris</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">5/6 août</span>J1</div>
+            <div>
+              <span class="day-badge">4h · +860m / -325m</span>
+              <div class="day-title">Orgère → Refuge de Péclet-Polset (2474m)</div>
+              <div class="day-desc">Vue directe sur le glacier de Péclet. Ambiance haute montagne immédiate. Moins fréquenté, soirée plus tranquille.</div>
+            </div>
+            <span class="price-pill">~65 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">6/7 août</span>J2</div>
+            <div>
+              <span class="day-badge">3–4h · +800m / -150m</span>
+              <div class="day-title">Péclet-Polset → Refuge de la Valette (2590m)</div>
+              <div class="day-desc">Cirque de la Valette, vue 360° sur la Grande Casse et les glaciers. Coup de cœur terrain quasi unanime : nourriture maison, gérants chaleureux.</div>
+            </div>
+            <span class="price-pill">~65 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">7/8 août</span>J3</div>
+            <div>
+              <span class="day-badge">6h30 · +1000m / -1100m</span>
+              <div class="day-title">Valette → Refuge du Col de la Vanoise (2517m)</div>
+              <div class="day-desc">Via Roc du Tambour. Décor minéral époustouflant. Descente du Cirque du Dard — parfois enneigé tardivement en début de saison. Option : Pointe de l'Observatoire (3015m, +20 min, vue Mont Blanc + Écrins).</div>
+            </div>
+            <span class="price-pill">~70 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">8/9 août</span>J4</div>
+            <div>
+              <span class="day-badge">5h · -1200m</span>
+              <div class="day-title">Col de la Vanoise → Pralognan-la-Vanoise (1400m) · Gîte</div>
+              <div class="day-desc">Via le Lac des Vaches. Nuit en gîte à Pralognan. Journée libre le lendemain pour explorer les environs ou se reposer les pieds.</div>
+            </div>
+            <span class="price-pill">~35 €/pers gîte</span>
+          </div>
+          <div class="day-row" style="border-bottom:none;">
+            <div class="day-col-date"><span class="day-num">10 août</span>Retour</div>
+            <div>
+              <span class="day-badge">Bus + train</span>
+              <div class="day-title">Pralognan → Moûtiers → Strasbourg (sœur)</div>
+              <div class="day-desc">Navette Autocars Martin le matin. Val a une journée tampon libre — parfait pour récupérer, ou continuer vers un prochain stop alpin.</div>
+            </div>
+            <span class="price-pill">+ billet retour</span>
+          </div>
+        </div>
+
+        <div class="budget-section" style="margin-top:32px;">
+          <div class="budget-header">Budget Option B — par personne · Option la moins chère</div>
+          <table class="budget-table">
+            <tr><td>Train Strasbourg → Modane (Prem's)</td><td class="detail">TGV vers l'Italie, souvent direct</td><td>45–65 €</td></tr>
+            <tr><td>Navette/taxi Modane → Orgère</td><td class="detail">~15 €/pers en partageant</td><td>~15 €</td></tr>
+            <tr><td>4 nuits refuge (demi-pension)</td><td class="detail">Moyenne 65 €/nuit</td><td>~260 €</td></tr>
+            <tr><td>1 nuit gîte Pralognan</td><td class="detail">Dortoir + dîner</td><td>~35 €</td></tr>
+            <tr><td>4 paniers pique-nique</td><td class="detail">~10 €/repas commandés au refuge</td><td>~40 €</td></tr>
+            <tr><td>Bus Pralognan → Moûtiers</td><td class="detail">Navette été</td><td>5 €</td></tr>
+            <tr><td>Train Moûtiers → Strasbourg (sœur, Aug 10)</td><td class="detail">Prem's</td><td>50–70 €</td></tr>
+            <tr><td>Taxes + divers</td><td class="detail">Taxe séjour, douches</td><td>~10 €</td></tr>
+            <tr><td><strong>Total estimé</strong></td><td></td><td><strong>460–500 €</strong></td></tr>
+          </table>
+        </div>
+        <div class="callout info" style="margin-top:16px;">Modane est directement sur la ligne TGV Paris–Turin. C'est la porte d'entrée la plus simple depuis Strasbourg pour les circuits en Maurienne.</div>
+      </div>
+
+      <!-- OPTION C -->
+      <div class="itinerary" id="tab-c">
+        <div class="route-header">
+          <div>
+            <div class="route-name">Haute-Maurienne & frontière italienne</div>
+            <div class="route-meta">
+              <span class="route-stat"><strong>~65 km</strong> · semi-boucle</span>
+              <span class="route-stat"><strong>5 étapes</strong></span>
+              <span class="route-stat">Départ : <strong>Bonneval-sur-Arc</strong></span>
+              <span class="route-stat">Idéal si : <strong>départ 3 ou 4 août</strong></span>
+            </div>
+          </div>
+          <span class="diff-badge diff-hard">Engagé · sauvage</span>
+        </div>
+        <p class="route-desc">L'option la plus authentique et la moins fréquentée. Bonneval-sur-Arc est l'un des plus beaux villages de France, au pied du col de l'Iseran, à deux pas du Parc National du Grand Paradis (Italie). Vallons isolés, lacs d'altitude, faune sauvage omniprésente. Pour les deux qui veulent sortir des sentiers battus. Accès par TGV vers Modane puis bus vers Bonneval.</p>
+
+        <div class="days-list">
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">3/4 août</span>J0 · Transit</div>
+            <div>
+              <span class="day-badge">Train + bus</span>
+              <div class="day-title">Strasbourg → Modane → Bonneval-sur-Arc (1800m)</div>
+              <div class="day-desc">TGV vers l'Italie + bus Transdev/Autocars Bérard depuis Lanslebourg ou Modane vers Bessans/Bonneval. Nuit à l'Auberge du Glacier de l'Iseran ou en gîte.</div>
+            </div>
+            <span class="price-pill">~80 €/pers</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">4/5 août</span>J1</div>
+            <div>
+              <span class="day-badge">5h · +750m</span>
+              <div class="day-title">Bonneval → Refuge de la Femma (2352m)</div>
+              <div class="day-desc">Vallon de la Leisse — un des vallons les plus isolés et les plus sauvages de la Vanoise. Marmottes en quantité, chamois, vue vers l'Italie. Peu de monde.</div>
+            </div>
+            <span class="price-pill">~62 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">5/6 août</span>J2</div>
+            <div>
+              <span class="day-badge">5h · +700m / -400m</span>
+              <div class="day-title">Femma → Refuge de la Leisse (2487m)</div>
+              <div class="day-desc">Col et plateau de la Leisse. Lacs d'altitude magnifiques. ⚠ Ce refuge accepte uniquement espèces ou chèques (pas de CB) — prévoir du cash.</div>
+            </div>
+            <span class="price-pill">~62 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">6/7 août</span>J3</div>
+            <div>
+              <span class="day-badge">5h · +600m / -500m</span>
+              <div class="day-title">Leisse → Col du Palet → Refuge du Col du Palet (2652m)</div>
+              <div class="day-desc">Panorama exceptionnel sur Tignes et les glaciers de Tarentaise. Jonction avec le versant ouest de la Vanoise. Vue côté Italie par temps clair.</div>
+            </div>
+            <span class="price-pill">~63 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">7/8 août</span>J4</div>
+            <div>
+              <span class="day-badge">6h30 · traversée</span>
+              <div class="day-title">Col du Palet → Refuge du Col de la Vanoise (2517m)</div>
+              <div class="day-desc">Plateau de la Croix des Frêtes. Jonction avec le GR55. Option : Pointe de l'Observatoire (3015m, +20 min) — vue sur Mont Blanc, Écrins et glaciers de la Vanoise.</div>
+            </div>
+            <span class="price-pill">~70 €/pers demi-pension</span>
+          </div>
+          <div class="day-row">
+            <div class="day-col-date"><span class="day-num">8/9 août</span>J5</div>
+            <div>
+              <span class="day-badge">5h · -1200m</span>
+              <div class="day-title">Col de la Vanoise → Pralognan-la-Vanoise · Gîte</div>
+              <div class="day-desc">Via Lac des Vaches. Nuit à Pralognan. Journée libre le 9 pour se reposer ou explorer les alentours. Val peut décider de continuer vers l'Italie depuis Moûtiers.</div>
+            </div>
+            <span class="price-pill">~35 €/pers gîte</span>
+          </div>
+          <div class="day-row" style="border-bottom:none;">
+            <div class="day-col-date"><span class="day-num">10 août</span>Retour</div>
+            <div>
+              <span class="day-badge">Bus + train</span>
+              <div class="day-title">Pralognan → Moûtiers → Strasbourg (sœur)</div>
+              <div class="day-desc">Navette matin. Exit parfait pour Val si elle veut continuer vers Turin ou les Dolomites côté italien — Moûtiers permet de filer partout.</div>
+            </div>
+            <span class="price-pill">+ billet retour</span>
+          </div>
+        </div>
+
+        <div class="budget-section" style="margin-top:32px;">
+          <div class="budget-header">Budget Option C — par personne</div>
+          <table class="budget-table">
+            <tr><td>Train Strasbourg → Modane (Prem's)</td><td class="detail">TGV vers l'Italie</td><td>45–65 €</td></tr>
+            <tr><td>Bus Modane → Bonneval-sur-Arc</td><td class="detail">Transdev / Autocars Bérard</td><td>~12 €</td></tr>
+            <tr><td>Auberge / gîte J0 à Bonneval</td><td class="detail">Nuit en chambre partagée + repas</td><td>~45 €</td></tr>
+            <tr><td>5 nuits refuge (demi-pension)</td><td class="detail">Moyenne 64 €/nuit</td><td>~320 €</td></tr>
+            <tr><td>4 paniers pique-nique</td><td class="detail">~10 €/repas commandés au refuge</td><td>~40 €</td></tr>
+            <tr><td>Bus Pralognan → Moûtiers</td><td class="detail">Navette été</td><td>5 €</td></tr>
+            <tr><td>Train Moûtiers → Strasbourg (sœur, Aug 10)</td><td class="detail">Prem's dimanche haute saison</td><td>50–70 €</td></tr>
+            <tr><td>Taxes + divers + cash pour Leisse</td><td class="detail">Taxe séjour, douches, cash obligatoire</td><td>~15 €</td></tr>
+            <tr><td><strong>Total estimé</strong></td><td></td><td><strong>532–572 €</strong></td></tr>
+          </table>
+        </div>
+        <div class="callout info" style="margin-top:16px;"><strong>Option la plus sauvage.</strong> Les refuges de la Leisse et de la Femma se remplissent très vite — réserver immédiatement, avant les autres circuits.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section">
+    <p class="section-label">Étape 3 — À faire maintenant</p>
+    <h2 class="section-title">Checklist pratique</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="tip-icon">🏔</span>
+        <div class="tip-title">Réserver les refuges cette semaine</div>
+        <div class="tip-body">En août, les refuges de la Vanoise sont complets 3 semaines à l'avance. Réservation en ligne + arrhes de 10 €/pers demandées. Site officiel : <strong>refuges-vanoise.com</strong>. Annulation = prévenir le gardien obligatoirement.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🚆</span>
+        <div class="tip-title">Acheter les billets SNCF maintenant</div>
+        <div class="tip-body">Les Prem's pour août sont déjà en vente depuis mars 2026. Sur <strong>sncf-connect.com</strong>. Vérifier aussi la carte Avantage Jeune (12–27 ans) si vous l'avez — ça réduit de 30%. Réserver le 10 août (billet retour sœur) en priorité absolue.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">💶</span>
+        <div class="tip-title">Prévoir du cash</div>
+        <div class="tip-body">Refuge de la Leisse : espèces ou chèques uniquement, pas de CB. D'autres refuges ont des problèmes de réseau. Prévoir 60–80 € de cash par personne pour le séjour en montagne.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🥗</span>
+        <div class="tip-title">Signaler les régimes alimentaires</div>
+        <div class="tip-body">Végétarien accepté dans la plupart des refuges si prévenu à la réservation. Vegan strict ou sans gluten : contacter directement chaque refuge — l'approvisionnement en haute altitude est limité.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🐕</span>
+        <div class="tip-title">Chiens interdits en Vanoise</div>
+        <div class="tip-body">Les chiens sont strictement interdits dans le Parc national de la Vanoise, même tenus en laisse. Sans aucune exception.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🗺</span>
+        <div class="tip-title">Cartes IGN recommandées</div>
+        <div class="tip-body">Top 25 — IGN 3534 OT (Les Trois Vallées) pour les circuits A et B. IGN 3633 ET (Tignes Val d'Isère) pour l'option C. App IGN Rando ou Komoot avec le GPX du GR55 pour la navigation.</div>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:24px;">
+      <strong>Bivouac en Vanoise.</strong> Le bivouac est autorisé uniquement sur les emplacements dédiés à proximité immédiate des refuges, en période estivale, sur réservation (env. 6 €). Il est <strong>totalement interdit</strong> au Refuge du Col de la Vanoise (forte fréquentation). Pas de camping sauvage.
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="section">
+    <p class="section-label">Récapitulatif</p>
+    <h2 class="section-title">Comparatif des 3 options</h2>
+    <div style="overflow-x:auto; margin-top:20px;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px; background:var(--white); border-radius:12px; overflow:hidden; border:1px solid var(--gray-200);">
+        <thead>
+          <tr style="background:var(--gray-50);">
+            <th style="padding:12px 18px; text-align:left; font-weight:500; color:var(--gray-400); font-size:11px; letter-spacing:.06em; text-transform:uppercase;"> </th>
+            <th style="padding:12px 18px; text-align:center; font-weight:500; color:var(--teal-800); font-size:12px;">Option A</th>
+            <th style="padding:12px 18px; text-align:center; font-weight:500; color:var(--teal-800); font-size:12px;">Option B</th>
+            <th style="padding:12px 18px; text-align:center; font-weight:500; color:var(--teal-800); font-size:12px;">Option C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid var(--gray-100);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Départ idéal</td>
+            <td style="padding:11px 18px; text-align:center; font-weight:500;">3 août</td>
+            <td style="padding:11px 18px; text-align:center; font-weight:500;">4 ou 5 août</td>
+            <td style="padding:11px 18px; text-align:center; font-weight:500;">3 ou 4 août</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100); background:var(--gray-50);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Distance</td>
+            <td style="padding:11px 18px; text-align:center;">~87 km</td>
+            <td style="padding:11px 18px; text-align:center;">~52 km</td>
+            <td style="padding:11px 18px; text-align:center;">~65 km</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Nuits en refuge</td>
+            <td style="padding:11px 18px; text-align:center;">6</td>
+            <td style="padding:11px 18px; text-align:center;">4</td>
+            <td style="padding:11px 18px; text-align:center;">5</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100); background:var(--gray-50);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Budget/pers estimé</td>
+            <td style="padding:11px 18px; text-align:center; font-weight:500; color:var(--amber-800);">604–634 €</td>
+            <td style="padding:11px 18px; text-align:center; font-weight:500; color:var(--amber-800);">460–500 €</td>
+            <td style="padding:11px 18px; text-align:center; font-weight:500; color:var(--amber-800);">532–572 €</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Accès gare</td>
+            <td style="padding:11px 18px; text-align:center;">Moûtiers + bus</td>
+            <td style="padding:11px 18px; text-align:center;">Modane direct ✓</td>
+            <td style="padding:11px 18px; text-align:center;">Modane + bus</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100); background:var(--gray-50);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Difficulté</td>
+            <td style="padding:11px 18px; text-align:center;">Intermédiaire</td>
+            <td style="padding:11px 18px; text-align:center;">Intermédiaire</td>
+            <td style="padding:11px 18px; text-align:center;">Engagé</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Fréquentation</td>
+            <td style="padding:11px 18px; text-align:center;">Élevée</td>
+            <td style="padding:11px 18px; text-align:center;">Modérée</td>
+            <td style="padding:11px 18px; text-align:center;">Faible ★</td>
+          </tr>
+          <tr style="border-top:1px solid var(--gray-100); background:var(--gray-50);">
+            <td style="padding:11px 18px; color:var(--gray-400); font-size:12px;">Point fort</td>
+            <td style="padding:11px 18px; text-align:center; font-size:12px;">Circuit complet, iconique</td>
+            <td style="padding:11px 18px; text-align:center; font-size:12px;">Plus simple, moins cher</td>
+            <td style="padding:11px 18px; text-align:center; font-size:12px;">Sauvage, frontière Italie</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>Vanoise Trek Planner · Août 2026 · Généré le 13 avril 2026</span>
+  <span>
+    <a href="https://www.refuges-vanoise.com" target="_blank">refuges-vanoise.com</a> ·
+    <a href="https://www.sncf-connect.com" target="_blank">sncf-connect.com</a> ·
+    <a href="https://vanoise-parcnational.fr" target="_blank">vanoise-parcnational.fr</a>
+  </span>
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.itinerary').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(el){ el.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
